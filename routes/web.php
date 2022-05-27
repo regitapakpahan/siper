@@ -84,13 +84,13 @@ Route::group(['middleware'=>['auth','CheckLevel:admin']], function(){
     Route::get('/tambahpetugas', [App\Http\Controllers\AdminController::class, 'tambahpetugas'])->name('tambahpetugas');
     Route::post('/insertpetugas', [App\Http\Controllers\AdminController::class, 'insertpetugas'])->name('insertpetugas');
     Route::post('/editpetugas', [App\Http\Controllers\AdminController::class, 'editpetugas'])->name('editpetugas');
- 
-   
+
+
 });
 
 Route::group(['middleware'=>['auth','CheckLevel:petugas']], function(){
     Route::get('/viewPengunjung', [App\Http\Controllers\PetugasController::class, 'index' ])->name('viewPengunjung');
-    
+
     Route::get('/vPengunjung', [App\Http\Controllers\PetugasController::class, 'vPengunjung' ])->name('v_pengunjung');
 
     Route::get('/vPeminjaman', [App\Http\Controllers\PetugasController::class, 'vPeminjaman' ])->name('v_peminjaman');
@@ -114,14 +114,17 @@ Route::group(['middleware'=>['auth','CheckLevel:petugas']], function(){
     Route::get('/searchbuku', [App\Http\Controllers\PetugasController::class, 'searchbuku'])->name('searchbuku');
 
     Route::get('/searchpengunjung', [App\Http\Controllers\PetugasController::class, 'searchpengunjung'])->name('searchpengunjung');
-  
-    
-     
+
+
+
 });
 
 Route::group(['middleware'=>['auth','CheckLevel:pengunjung']], function(){
-  
-    Route::get('/pinjam', [App\Http\Controllers\PengunjungController::class, 'index' ])->name('pinjam');
+
+    Route::get('/pinjam/{idBuku}', [App\Http\Controllers\PengunjungController::class, 'index' ])->name('pinjam');
+    Route::post('/pinjam/{idBuku}', [App\Http\Controllers\PeminjamanController::class, 'store' ]);
+
+
     Route::get('/search', [App\Http\Controllers\PengunjungController::class, 'search' ])->name('search');
     Route::get('/profile-pengunjung', [App\Http\Controllers\PengunjungController::class, 'profilePengunjung' ])->name('profile-pengunjung');
     Route::get('/loanhistory-pengunjung', [App\Http\Controllers\PengunjungController::class, 'loanHistory' ])->name('loanhistory-pengunjung');

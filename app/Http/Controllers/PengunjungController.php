@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use app\Http\Models\Buku;
 use app\Http\Models\User;
+use App\Models\Buku as ModelsBuku;
+use App\Models\User as ModelsUser;
 use Illuminate\Support\Facades\DB;
 
 
@@ -18,17 +20,15 @@ class PengunjungController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-  
-     
-   
+
+
+
     }
-    
+
     public function index($id)
     {
-        $buku = Buku::find($id);
-        dd($buku);
-
-        return view('pengunjung.loaningpage_pengunjung');
+        $buku = ModelsBuku::where('id', $id)->first();
+        return view('pengunjung.loaningpage_pengunjung')->with(compact(['buku']));
     }
 
 
@@ -100,7 +100,7 @@ class PengunjungController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,)
+    public function update(Request $request)
     {
         //
     }
